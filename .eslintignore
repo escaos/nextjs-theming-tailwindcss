@@ -1,0 +1,7 @@
+**/node_modules
+**/public
+src/frontend/config/env.js
+**/build
+*.d.ts
+.DS_Store
+.next

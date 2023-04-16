@@ -1,0 +1,47 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2022": true,
+    "jest": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "react", "prettier"],
+  "extends": ["next", "next/core-web-vitals", "eslint:recommended", "google", "prettier"],
+  "globals": {
+    "React": "readonly",
+    "__BROWSER__": true,
+    "__SERVER__": true
+  },
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "no-unused-vars": [1, { "args": "after-used", "argsIgnorePattern": "^_" }],
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "@typescript-eslint/no-explicit-any": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "brace-style": "error",
+    "require-jsdoc": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "space-before-blocks": "error",
+    "react/jsx-props-no-spreading": "off",
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function"
+      }
+    ],
+    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+    "react/button-has-type": "error",
+    "no-underscore-dangle": "off",
+    "camelcase": "off",
+    "@next/next/no-img-element": "off"
+  }
+}
