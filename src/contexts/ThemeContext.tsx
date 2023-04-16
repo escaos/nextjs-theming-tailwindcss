@@ -24,36 +24,48 @@ type ContextProps = {
   toggleTheme: () => void;
 };
 
+const getCookieTheme = () => {
+  return (getCookie('theme') ?? THEME_LIGHT) as ITheme;
+};
+
+const getCookiePalette = () => {
+  const theme = getCookieTheme();
+  return PALETTE[theme];
+};
+
 const Context = createContext<ContextProps>({
   isLoading: true,
-  theme: THEME_LIGHT,
-  palette: PALETTE[THEME_LIGHT],
+  theme: getCookieTheme(),
+  palette: getCookiePalette(),
   toggleTheme: () => {},
 });
 
 const ContextProvider = ({ children }: ProviderProps): ReactElement => {
   const [isLoading, setLoading] = useState(true);
-  const [theme, setTheme] = useState<ITheme>(THEME_LIGHT);
-  const [palette, setPalette] = useState<IThemePalette>(PALETTE[theme]);
+  const [theme, setTheme] = useState<ITheme>(getCookieTheme());
+  const [palette, setPalette] = useState<IThemePalette>(getCookiePalette());
 
   const saveTheme = useCallback((newTheme: ITheme) => {
-    setCookie('theme', newTheme);
+    console.log('🚀 ~ file: ThemeContext.tsX:53 ~ saveTheme ~ newTheme:', newTheme);
+
+    const x = setCookie('theme', newTheme);
+    console.log('🚀 ~ file: ThemeContext.tsX:52 ~ saveTheme ~ x:', x);
     setTheme(newTheme);
     setPalette(PALETTE[newTheme]);
   }, []);
 
   const toggleTheme = useCallback(() => {
-    const themeCookie = getCookie('theme');
+    console.log('🚀 ~ file: ThemeContext.tsX:56 ~ toggleTheme ~ theme:', theme);
 
-    if (themeCookie === THEME_LIGHT) saveTheme(THEME_DARK);
-    else saveTheme(THEME_LIGHT);
-  }, [saveTheme]);
+    saveTheme(theme === THEME_LIGHT ? THEME_DARK : THEME_LIGHT);
+  }, [saveTheme, theme]);
 
   useEffect(() => {
     const mountContext = () => {
       setLoading(true);
 
       const themeCookie = getCookie('theme') as ITheme;
+      console.log('🚀 ~ file: ThemeContext.tsX:57 ~ mountContext ~ themeCookie:', themeCookie);
       saveTheme(themeCookie ?? THEME_LIGHT);
 
       setLoading(false);
